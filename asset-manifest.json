@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Sukesh92/Ecom-react/static/css/main.62f64cb1.css",
+    "main.js": "/Sukesh92/Ecom-react/static/js/main.6e488e27.js",
+    "static/js/787.8ffb117d.chunk.js": "/Sukesh92/Ecom-react/static/js/787.8ffb117d.chunk.js",
+    "index.html": "/Sukesh92/Ecom-react/index.html",
+    "main.62f64cb1.css.map": "/Sukesh92/Ecom-react/static/css/main.62f64cb1.css.map",
+    "main.6e488e27.js.map": "/Sukesh92/Ecom-react/static/js/main.6e488e27.js.map",
+    "787.8ffb117d.chunk.js.map": "/Sukesh92/Ecom-react/static/js/787.8ffb117d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62f64cb1.css",
+    "static/js/main.6e488e27.js"
+  ]
+}
