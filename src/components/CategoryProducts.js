@@ -130,10 +130,9 @@ const CategoryProducts = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>CATEGORY ID</th>
+              <th>CATEGORY</th>
               <th>PRODUCT ID</th>
               <th>PRODUCT NAME</th>
-              <th>CATEGORY</th>
               <th>BRAND</th>
               <th>MRP</th>
               <th>DISCOUNT</th>
@@ -143,10 +142,9 @@ const CategoryProducts = () => {
           <tbody>
             {currentProducts.map((product) => (
               <tr key={product.PD_ID}>
-                <td>{product.CD_ID}</td>
+                <td>{product.CD}</td>
                 <td>{product.PD_ID}</td>
                 <td>{product.PD_NAME}</td>
-                <td>{product.CD}</td>
                 <td>{product.BRAND}</td>
                 <td>{product.MRP}</td>
                 <td>{product.DISCOUNT}</td>

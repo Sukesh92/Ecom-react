@@ -39,7 +39,7 @@ const CategoryTable = () => {
                             <div key={category.CD_ID} className="category-item">
                                 <Link to={`/products/category/${encodeURIComponent(category.CATEGORY_NAME)}`}>
                                     <img
-                                        src={`/images/${category.CATEGORY_NAME}.jpg`}
+                                        src={`/images/category${category.CD_ID}.jpg`}
                                         alt={category.CATEGORY_NAME}
                                         onClick={() => handleImageClick(category.CATEGORY_NAME)}
                                     />
