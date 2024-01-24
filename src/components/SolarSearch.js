@@ -4,26 +4,27 @@ import './SolarSearch.css';
 
 const SolarSearch = () => {
   let { searchTerm } = useParams();
-  const [data, setData] = useState([]);
+  const [data, setdata] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchdata() {
       try {
-        let url = `http://localhost:2000/search/${searchTerm}`;
-
-        // Check if there is a brand parameter
-        if (searchTerm) {
-          url += `?brand=${searchTerm}`;
-        }
-
-        let response = await fetch(url);
+        console.log("passing searechterm ", searchTerm);
+        let response = await fetch(`http://localhost:2000/search?q=${encodeURIComponent(searchTerm)}`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
         response = await response.json();
-        setData(response);
+        console.log(response);
+        setdata(response);
       } catch (error) {
         console.error('Error performing Solr search:', error);
       }
     }
-    fetchData();
+    fetchdata();
   }, [searchTerm]);
 
   return (

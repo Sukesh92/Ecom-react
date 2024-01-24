@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Products.css';
 
-
 const Products = () => {
     const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -11,6 +10,7 @@ const Products = () => {
     const [searchTerm, setSearchResults] = useState([]);
     const { categoryName } = useParams();
     const navigate = useNavigate();
+
     useEffect(() => {
         fetch("http://localhost:2000/products", {
             method: 'GET',
@@ -19,14 +19,11 @@ const Products = () => {
                 'Content-Type': 'application/json',
             }
         }).then((res) => res.json().then((data) => {
-            // Clear existing categories and set new ones
             setCategories(data.results);
         }))
     }, [categoryName, currentPage, productsPerPage]);
 
-
     useEffect(() => {
-        // Update the URL only if a category is selected
         if (selectedCategory) {
             let url = `/products/category/${selectedCategory.toLowerCase()}`;
             url += `?page=${currentPage}`;
@@ -42,6 +39,20 @@ const Products = () => {
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = categories.slice(indexOfFirstProduct, indexOfLastProduct);
 
+    const totalPages = Math.ceil(categories.length / productsPerPage);
+    const maxPagesToShow = 7;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+    if (totalPages <= maxPagesToShow) {
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        if (endPage - startPage + 1 < maxPagesToShow) {
+            startPage = endPage - maxPagesToShow + 1;
+        }
+    }
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const prevPage = () => {
@@ -51,19 +62,20 @@ const Products = () => {
     };
 
     const nextPage = () => {
-        if (currentPage < Math.ceil(categories.length / productsPerPage)) {
+        if (currentPage < totalPages) {
             setCurrentPage((prev) => prev + 1);
         }
     };
+
     const goToHome = () => {
         navigate('/category');
     };
+
     const handleSearch = (e) => {
-        // Perform Solr search
-    e.preventDefault()
-    navigate(`/SolarSearch/${encodeURIComponent(searchTerm)}`)
-        console.log(searchTerm)
-      };
+        e.preventDefault();
+        navigate(`/SolarSearch/${encodeURIComponent(searchTerm)}`);
+        console.log(searchTerm);
+    };
 
     return (
         <div>
@@ -134,17 +146,17 @@ const Products = () => {
                     <button onClick={prevPage} disabled={currentPage === 1} className='pagination-button prev'>
                         Prev
                     </button>
-                    {Array.from({ length: Math.ceil(categories.length / productsPerPage) }).map((_, index) => (
+                    {Array.from({ length: endPage - startPage + 1 }).map((_, index) => (
                         <button
-                            key={index}
-                            onClick={() => paginate(index + 1)}
-                            disabled={currentPage === index + 1}
+                            key={startPage + index}
+                            onClick={() => paginate(startPage + index)}
+                            disabled={currentPage === startPage + index}
                             className='pagination-button'
                         >
-                            {index + 1}
+                            {startPage + index}
                         </button>
                     ))}
-                    <button onClick={nextPage} disabled={currentPage === Math.ceil(categories.length / productsPerPage)} className='pagination-button next'>
+                    <button onClick={nextPage} disabled={currentPage === totalPages} className='pagination-button next'>
                         Next
                     </button>
                 </div>
