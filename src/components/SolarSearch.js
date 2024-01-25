@@ -51,7 +51,7 @@ const SolarSearch = () => {
             </div>
             <div className="image-overlay">
               <div className="overlay-content">
-                <p className="overlay-text">{category.CD}</p>
+                <p className="overlay-text">{category.BRAND}</p>
                 <p className="overlay-text">Stock: {category.STOCK}</p>
               </div>
             </div>

@@ -9,7 +9,6 @@ const CategoryProducts = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch products based on the category and update state
     fetch(`http://localhost:2000/products/category/${category}`)
       .then((response) => response.json())
       .then((data) => {
